@@ -19,7 +19,7 @@ const port = process.env.APP_PORT || 4000;  // eslint-disable-line
 app.use(express.urlencoded({ extended: false })) // takes all url encoded data and parse to object, which we can use in request object (req.body)
 app.use(express.json()) // all data send to api will be able to access as a json
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hello Node Backend!')
 })
 app.use((req, res) => {
     res.status(404).send('404 Error')
