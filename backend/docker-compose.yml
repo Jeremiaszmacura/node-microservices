@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 
 services:
 
@@ -41,6 +41,33 @@ services:
     depends_on:
       - mongodb
     restart: always
+
+  node-app:
+    image: node-app
+    container_name: node-app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: sh -c "/workspace/server/sleep.sh && exec node src/server.js"
+    ports:
+      - 4000:4000
+      - 9229:9229
+    env_file: .env
+    environment:
+      APP_PORT: ${APP_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_DOCKER_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+    volumes:
+      - .:/workspace/server
+      - /workspace/server/node_modules
+    networks:
+      - node-network
+    restart: on-failure
+    depends_on:
+      - mongodb
 
 networks:
     node-network:
