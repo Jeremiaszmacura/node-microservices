@@ -1,0 +1,23 @@
+name: Snyk
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+    - 'backend/**'
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get only backend files
+        run: mv ./backend/* ./
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
