@@ -32,4 +32,4 @@ jobs:
           context: ./backend/
           file: ./backend/Dockerfile
           push: true
-          tags: jerqa/node-microservices:latest
+          tags: jerqa/node-microservices:develop
