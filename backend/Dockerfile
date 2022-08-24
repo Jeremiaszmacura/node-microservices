@@ -2,11 +2,13 @@ FROM node:latest
 
 WORKDIR /workspace/backend
 
-COPY backend/package*.json ./
+COPY --chown=node:node backend/package*.json ./
 
 RUN npm install
 
-COPY backend/ /workspace/backend/
+COPY --chown=node:node backend/ /workspace/backend/
+
+USER node
 
 RUN ["chmod", "+x", "/workspace/backend/sleep.sh"]
 
