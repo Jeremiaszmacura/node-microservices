@@ -1,0 +1,31 @@
+name: Unit Tests
+
+on: 
+  push:
+    # run backend unit tests only when there are changes in server directory
+    paths:
+    - 'backend/**'
+
+jobs:
+  unit-testing:
+    runs-on: ubuntu-latest
+    
+    env:
+      NODE_ENV: test
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+        
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get only backend files
+        run: mv ./backend/* ./
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm test
