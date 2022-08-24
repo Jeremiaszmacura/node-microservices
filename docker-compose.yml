@@ -62,13 +62,33 @@ services:
       DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_NAME: ${DATABASE_NAME}
     volumes:
-      - .:/workspace/server
-      - /workspace/server/node_modules
+      - ./backend/:/workspace/backend
+      - /workspace/backend/node_modules
     networks:
       - node-ms-network
     restart: on-failure
     depends_on:
       - node-ms-mongodb
+    deploy:
+      replicas: 1
+
+  node-ms-frontend:
+    image: node-ms-frontend
+    container_name: node-ms-frontend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - 3000:3000
+    env_file: .env
+    environment:
+      NODE_ENV: ${development}
+    volumes:
+      - ./frontend/:/workspace/frontend
+      - /workspace/frontend/node_modules
+    networks:
+      - node-ms-network
+    restart: on-failure
     deploy:
       replicas: 1
 
