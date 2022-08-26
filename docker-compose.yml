@@ -10,12 +10,12 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_ADMIN_PASSWORD}
       - MONGO_INITDB_DATABASE=${DATABASE_NAME}
     env_file: 
-    - ../.env
+    - .env
     ports:
       - '27017-27019:27017-27019'
     volumes: 
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-      - ./mongo-data:/data/db
+      - ./backend/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./backend/mongo-data:/data/db
     networks:
       - node-ms-network
     restart: always
@@ -37,7 +37,7 @@ services:
     env_file: 
       - .env
     volumes:
-      - ./sleep.sh:/sleep.sh:ro
+      - ./backend/sleep.sh:/sleep.sh:ro
     command: /bin/sh -c "/sleep.sh && tini -- /docker-entrypoint.sh"
     networks:
       - node-ms-network
@@ -50,14 +50,14 @@ services:
     container_name: node-ms-backend
     build:
       context: .
-      dockerfile: ./Dockerfile
-    command: sh -c "/workspace/backend/sleep.sh && exec node src/server.js"
+      dockerfile: ./backend/Dockerfile
+    command: /bin/sh -c "/workspace/backend/sleep.sh && exec node src/server.js"
     ports:
       - 4000:4000
       - 9229:9229
     env_file: .env
     environment:
-      NODE_ENV: ${NODE_ENV}
+      NODE_ENV: ${development}
       APP_PORT: ${APP_PORT}
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
@@ -65,13 +65,33 @@ services:
       DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_NAME: ${DATABASE_NAME}
     volumes:
-      - .:/workspace/server
-      - /workspace/server/node_modules
+      - ./backend/:/workspace/backend
+      - /workspace/backend/node_modules
     networks:
       - node-ms-network
     restart: on-failure
     depends_on:
       - node-ms-mongodb
+    deploy:
+      replicas: 1
+
+  node-ms-frontend:
+    image: node-ms-frontend
+    container_name: node-ms-frontend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - 3000:3000
+    env_file: .env
+    environment:
+      NODE_ENV: ${development}
+    volumes:
+      - ./frontend/:/workspace/frontend
+      - /workspace/frontend/node_modules
+    networks:
+      - node-ms-network
+    restart: on-failure
     deploy:
       replicas: 1
 

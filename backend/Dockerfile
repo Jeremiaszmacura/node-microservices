@@ -1,13 +1,15 @@
 FROM node:latest
 
-WORKDIR /workspace/server
+WORKDIR /workspace/backend
 
-COPY package*.json ./
+COPY --chown=node:node backend/package*.json ./
 
 RUN npm install
 
-COPY . /workspace/server
+COPY --chown=node:node backend/ /workspace/backend/
 
-RUN ["chmod", "+x", "/workspace/server/sleep.sh"]
+USER node
+
+RUN ["chmod", "+x", "/workspace/backend/sleep.sh"]
 
 CMD ["node", "src/server.js"]

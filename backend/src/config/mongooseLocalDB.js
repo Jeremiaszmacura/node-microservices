@@ -17,7 +17,7 @@ const connectDB = async () => {
 
       const mongoDBHostname = process.env.DATABASE_HOST || 'localhost'
       const mongoDBPort = process.env.DATABASE_PORT || '27017'
-      const mongoDBName = process.env.DATABASE_NAME || 'node-database'
+      const mongoDBName = process.env.DATABASE_NAME || 'node-ms-mongodb'
 
       mongoDBURI = 'mongodb://' + mongoDBCredentials + mongoDBHostname + ':' + mongoDBPort + '/' + mongoDBName
     }
