@@ -36,6 +36,9 @@ services:
       - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
     env_file: 
       - .env
+    volumes:
+      - ./backend/sleep.sh:/sleep.sh:ro
+    command: /bin/sh -c "/sleep.sh && tini -- /docker-entrypoint.sh"
     networks:
       - node-ms-network
     depends_on:
@@ -48,7 +51,7 @@ services:
     build:
       context: .
       dockerfile: ./backend/Dockerfile
-    command: sh -c "/workspace/backend/sleep.sh && exec node src/server.js"
+    command: /bin/sh -c "/workspace/backend/sleep.sh && exec node src/server.js"
     ports:
       - 4000:4000
       - 9229:9229
