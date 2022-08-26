@@ -10,7 +10,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_ADMIN_PASSWORD}
       - MONGO_INITDB_DATABASE=${DATABASE_NAME}
     env_file: 
-    - .env
+    - ../.env
     ports:
       - '27017-27019:27017-27019'
     volumes: 
@@ -36,6 +36,9 @@ services:
       - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
     env_file: 
       - .env
+    volumes:
+      - ./sleep.sh:/sleep.sh:ro
+    command: /bin/sh -c "/sleep.sh && tini -- /docker-entrypoint.sh"
     networks:
       - node-ms-network
     depends_on:
