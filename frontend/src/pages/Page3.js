@@ -1,8 +1,10 @@
+import Card from '../components/ui/Card'
+
 const Page3 = () => {
 
     return (
         <div className="home-page">
-            <h1>Page 3</h1>
+            <Card></Card>
         </div>
     );
 }

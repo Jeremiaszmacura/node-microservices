@@ -1,9 +1,10 @@
+import Card from '../components/ui/Card'
+
 const HomePage = () => {
 
     return (
         <div className="home-page">
-            <h1>Node Microservices</h1>
-            <h2>Frontend</h2>
+            <Card></Card>
         </div>
         
     );

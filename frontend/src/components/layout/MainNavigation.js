@@ -8,18 +8,19 @@ const MainNavigation = () => {
         <header className={styles.header}>
             <div className={styles.logo}>Node Microservices</div>
             <nav>
-                <ul>
+                <ul className={styles.nav_links}>
                     <li>
-                        <Link to='/'>Home</Link>
+                        <Link className={styles.a} to='/'>Home</Link>
                     </li>
                     <li>
-                        <Link to='/page2'>Page 2</Link>
+                        <Link className={styles.a} to='/page2'>Page 2</Link>
                     </li>
                     <li>
-                        <Link to='/page3'>Page 3</Link>
+                        <Link className={styles.a} to='/page3'>Page 3</Link>
                     </li>
                 </ul>
             </nav>
+            <Link to='/'><button>Contact</button></Link>
         </header>
     )
 }
