@@ -4,17 +4,17 @@ const jwt = require('jsonwebtoken')
 const { User } = require('../models/user')
 
 // Authorization
-const signup = async (req, res, next) => {
-  passport.authenticate('signup', { session: false },
+const register = async (req, res, next) => {
+  passport.authenticate('register', { session: false },
     async (err, user) => {
       if (err) {
         if (err.code === 11000) {
-          return res.json('This email is already in use')
+          return res.json({ error: 'This email is already in use'})
         }
         const error = new Error('An error occurred: ' + err)
         return next(error)
       }
-      return res.json(user)
+      return res.status(201).json(user)
     }
   )(req, res, next)
 }
@@ -37,10 +37,10 @@ const login = async (req, res, next) => {
           async (error) => {
             if (error) {return next(error)}
 
-            const body = { _id: user._id, email: user.email }
+            const body = { _id: user._id, name: user.name, email: user.email, role: user.role }
             const token = jwt.sign({ user: body }, 'TOP_SECRET')
 
-            return res.json({ token })
+            return res.json({ message: "Successfully Authenticated", body, token })
           }
         )
       } catch (error) {
@@ -48,6 +48,10 @@ const login = async (req, res, next) => {
       }
     }
   )(req, res, next)
+}
+
+const logout = (req, res) => {
+  return res.json({ message: '[SERVER] logout'})
 }
 
 const validateUser = async (req, res) => {
@@ -99,8 +103,9 @@ const removeUser = (req, res) => {
 }
 
 module.exports = {
-  signup,
+  register,
   login,
+  logout,
   validateUser,
   getAll,
   getOne,

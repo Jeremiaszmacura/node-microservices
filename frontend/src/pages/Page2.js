@@ -4,7 +4,9 @@ const Page2 = () => {
 
     return (
         <div className="home-page">
-            <Card></Card>
+            <Card>
+                <h1>Page 2</h1>
+            </Card>
         </div>
     );
 }

@@ -7,7 +7,7 @@ const ExtractJWT = require('passport-jwt').ExtractJwt
 
 // First, add a Passport middleware to handle user registration:
 passport.use(
-  'signup',
+  'register',
   new LocalStrategy(
     {
       usernameField: 'email',

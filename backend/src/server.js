@@ -5,6 +5,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const helmet = require('helmet')
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
@@ -14,7 +15,11 @@ const userRoutes = require('./routes/userRoutes')
 // VARIABLES
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}));
+app.use(helmet())
 const port = process.env.APP_PORT || 4000;  // eslint-disable-line
 const swaggerOptions = {
     swaggerDefinition: {

@@ -8,7 +8,7 @@
 li, a, button {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 1em;
   color: #edf0f1;
   text-decoration: none;
 }
@@ -17,7 +17,8 @@ header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 30px;
+  padding: 1.2em 1.8em;
+  background: #000000;
 }
 
 .logo {
@@ -32,7 +33,7 @@ header {
 
 .nav_links li {
   display: inline-block;
-  padding: 0px 20px;
+  padding: 0px 1em;
 }
 
 .nav_links li .a {
@@ -44,15 +45,20 @@ header {
 }
 
 button {
-  margin-left: 20px;
-  padding: 9px 25px;
-  background-color: rgba(0, 136, 169, 1);
+  padding: 0.5em 1.5em;
+  background-color: rgba(0, 204, 255, 0.466);
   border: none;
-  border-radius: 50px;
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease 0s;
 }
 
-button:hover {
-  background-color: rgba(0, 136, 169, 1);
+button:hover,
+button:active {
+  background-color: #a50e48;
+  border-color: #a50e48;
+}
+
+header button {
+  margin-left: 0.5em;
 }
