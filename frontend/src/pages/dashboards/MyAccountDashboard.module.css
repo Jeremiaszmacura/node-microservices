@@ -1,0 +1,23 @@
+.largeField {
+
+    font-size: 1.2em;
+    padding: 0.5em 2em;
+    column-gap: 2em;
+}
+
+.largeField p {
+    padding-top: 1em;
+}
+
+.smallField {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0.5em 2em;
+    column-gap: 2em;
+    justify-content: space-between;
+}
+
+.title {
+    text-shadow: 0 0 1px #fff;
+    font-weight: bold;
+}

@@ -38,7 +38,7 @@ const LoginPage = () => {
             res.json().then((data) => {
                 if (data.message === "Successfully Authenticated") {
                     setUser(data);
-                    if (data.role === 'admin') setAdmin(data.body.role);
+                    if (data.body.role === 'ADMIN') setAdmin(data.body.role);
                     localStorage.setItem('userInStorage', JSON.stringify(data));
                     localStorage.setItem('roleInStorage', JSON.stringify(data.body.role));
                     navigate('/');

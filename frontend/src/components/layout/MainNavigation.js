@@ -48,6 +48,11 @@ const MainNavigation = () => {
                     <li>
                         <Link className={styles.a} to='/register'>Register</Link>
                     </li>
+                    {admin ? (
+                        <li>
+                            <Link className={styles.a} to='/dashboard'>Dashboard</Link>
+                        </li>
+                    ) : false }
                 </ul>
             </nav>
             {user ? (

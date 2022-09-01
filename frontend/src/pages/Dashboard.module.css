@@ -1,0 +1,20 @@
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+li {
+    list-style-type: none;
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    display: center;
+}
+
+.dashboardPage h1 {
+    padding-bottom: 0.5em;
+}
