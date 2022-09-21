@@ -1,0 +1,54 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: node-ms-backend
+# spec:
+#   selector:
+#     app: node-ms-backend
+#   ports:
+#     - port: 80
+#       targetPort: 4000
+#   type: LoadBalancer
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: node-ms-backend
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: node-ms-backend
+#   template:
+#     metadata:
+#       labels:
+#         app: node-ms-backend
+#     spec:
+#       containers:
+#         - name: node-ms-backend
+#           image: jerqa/node-microservices
+#           ports:
+#             - containerPort: 4000
+#           env:
+#             - name: NODE_ENV
+#               value: development
+#             - name: APP_PORT
+#               value: "4000"
+#             - name: DATABASE_USERNAME
+#               value: user
+#             - name: DATABASE_PASSWORD
+#               value: user
+#             - name: DATABASE_HOST
+#               value: node-ms-mongodb
+#             - name: DATABASE_PORT
+#               value: "27017"
+#             - name: DATABASE_NAME
+#               value: node-ms-mongodb
+#           resources:
+#             requests:
+#               memory: "64Mi"
+#               cpu: "250m"
+#             limits:
+#               memory: "128Mi"
+#               cpu: "500m"
+#           imagePullPolicy: Always
